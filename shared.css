@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+
+/* Type reset: readable product UI first; editorial display remains Playfair. */
+body{font-family:'DM Sans',Manrope,Arial,sans-serif!important;font-size:16px!important;line-height:1.62!important}
+p{font-size:16px!important;line-height:1.68!important}
+.text{font-family:'DM Sans',Manrope,Arial,sans-serif!important;font-size:15px!important;line-height:1.72!important}
+.mono,.eyebrow{font-size:12px!important;line-height:1.45!important;letter-spacing:.1em!important}
+.nav{font-size:13px!important}.nav .button,.btn,.link{font-size:12px!important;line-height:1.25!important}
+.meta{font-size:12px!important;line-height:1.5!important;letter-spacing:.05em!important}
+.card-info h3{font-size:17px!important;line-height:1.28!important}
+button,input,select,textarea{font-family:'DM Sans',Manrope,Arial,sans-serif!important}
+input,select,textarea{font-size:15px!important;line-height:1.45!important}
+label{font-size:12px!important;line-height:1.45!important}
+@media(max-width:760px){body{font-size:15px!important}.text{font-size:15px!important}.nav{font-size:14px!important}.mono,.eyebrow{font-size:11px!important}.meta{font-size:11px!important}}
+:root{--ink:#1c251d;--moss:#314233;--deep:#15221d;--paper:#f1efe8;--warm:#e4dfd3;--sand:#cfaf81;--fog:#6b756a;--line:rgba(28,37,29,.17);--max:1380px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:14px Manrope,Arial,sans-serif}a{color:inherit;text-decoration:none}.shell{width:min(var(--max),calc(100% - 64px));margin:auto}.mono,.eyebrow{font:500 10px 'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase}.eyebrow{color:#657160}.topbar{height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{font:600 18px 'DM Mono',monospace;letter-spacing:-.13em}.nav{display:flex;gap:25px;align-items:center;font-size:11px}.nav .button{border:1px solid currentColor;padding:9px 12px;font:500 9px 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase}.menu{display:none}.display{font:500 clamp(46px,6.5vw,105px)/.88 'Playfair Display',Georgia,serif;letter-spacing:-.065em;margin:12px 0}.section{padding:106px 0}.rule-head{border-top:1px solid var(--line);padding-top:16px;display:flex;justify-content:space-between;align-items:end;margin-bottom:28px}.title{font:500 clamp(36px,4vw,58px)/.94 'Playfair Display',Georgia,serif;letter-spacing:-.055em;margin:8px 0 0}.text{color:#616a60;line-height:1.65;font-size:12px}.link{display:inline-flex;align-items:center;gap:10px;border-bottom:1px solid currentColor;padding-bottom:6px;font:500 10px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase}.btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 18px;background:var(--moss);color:#fff;font:500 10px 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;border:0}.btn.sand{background:var(--sand);color:var(--deep)}.btn.ghost{background:transparent;color:inherit;border:1px solid currentColor}.pill{display:inline-block;background:#e1ded4;padding:7px 9px;font:500 9px 'DM Mono',monospace;letter-spacing:.07em;text-transform:uppercase}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card-photo{height:390px;position:relative;overflow:hidden;background:#cfc9bb}.card-photo img,.cover img,.gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}.card:hover img{transform:scale(1.04)}.tag{position:absolute;top:14px;left:14px;background:var(--paper);padding:7px 8px;font:500 9px 'DM Mono',monospace;letter-spacing:.07em;text-transform:uppercase}.card-info{display:grid;grid-template-columns:1fr auto;gap:10px;padding-top:14px}.card-info h3{font-size:14px;line-height:1.35;margin:0}.card-info p{margin:5px 0 0;font-size:12px;color:var(--fog)}.price{font:500 12px 'DM Mono',monospace}.meta{grid-column:1/-1;border-top:1px solid var(--line);padding-top:10px;color:var(--fog);font:500 9px 'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase}.dark{background:var(--deep);color:#f4f0e6}.dark .eyebrow{color:#bec9ba}.dark .rule-head{border-color:rgba(255,255,255,.22)}.dark .text{color:#c4cec1}.modal{position:fixed;inset:0;z-index:20;background:rgba(13,20,15,.62);display:none;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.modal-card{max-width:440px;background:var(--paper);padding:34px;box-shadow:0 25px 65px rgba(0,0,0,.3)}.modal-card h2{font:500 37px/.95 'Playfair Display',serif;letter-spacing:-.05em;margin:10px 0}.modal-card p{line-height:1.6;color:#5e675d}.modal-card button{margin-top:8px}@media(max-width:760px){.shell{width:min(100% - 32px,var(--max))}.topbar{height:65px}.nav{display:none}.menu{display:block;border:0;background:none;font:500 10px 'DM Mono',monospace;letter-spacing:.08em}.section{padding:72px 0}.cards{grid-template-columns:1fr}.card-photo{height:420px}.rule-head{display:block}.rule-head .link{margin-top:20px}.display{font-size:55px}}
+
+/* =====================================================================
+   v3 layer — appended after the original shared styles.
+   Contains: type fixes, finder (search bar), listing card, category tiles,
+   footer, mobile drawer. Original rules above are untouched.
+   ===================================================================== */
+:root{--paper-2:#f7f5ef;--rule:rgba(28,37,29,.14);--shadow-lg:0 34px 70px -30px rgba(12,20,14,.5)}
+.no-scroll{overflow:hidden}
+
+/* Display type: the old -0.065em tracking made letters touch. */
+h1,h2,h3,.display,.title{letter-spacing:-.022em!important}
+.display{letter-spacing:-.028em!important;line-height:.95!important}
+.hcard-title,.tile-title{letter-spacing:-.015em!important}
+
+/* Navigation: same links everywhere, current page underlined. */
+.nav a:not(.button){padding:5px 0;transition:box-shadow .2s}
+.nav a:not(.button):hover,.nav a[aria-current=page]{box-shadow:0 1px 0 currentColor}
+.nav .button{transition:background .2s,color .2s}
+
+/* ---------- Finder (the search bar) ---------- */
+.finder-wrap{position:relative;z-index:8;margin-top:-47px}
+.finder{display:grid;grid-template-columns:1.25fr 1fr 1.1fr auto;background:var(--paper-2);border:1px solid rgba(28,37,29,.08);box-shadow:var(--shadow-lg)}
+.finder-field{position:relative;border-right:1px solid var(--rule)}
+.finder-field:last-of-type{border-right:0}
+.finder-trigger{display:flex;flex-direction:column;align-items:stretch;gap:8px;width:100%;padding:20px 28px 19px;border:0;background:transparent;color:var(--ink);text-align:left;cursor:pointer;transition:background .2s}
+.finder-trigger:hover,.finder-field.open .finder-trigger{background:rgba(49,66,51,.06)}
+.finder-trigger:focus-visible{outline:2px solid var(--moss);outline-offset:-3px}
+.finder-label{font:500 10.5px/1 'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--fog)}
+.finder-value{display:flex;align-items:center;justify-content:space-between;gap:14px;font:500 17px/1.2 'DM Sans',sans-serif}
+.finder-field:not(.is-set) .finder-text{color:#47524a;font-weight:400}
+.finder-chev{flex:none;color:var(--moss);transition:transform .2s}
+.finder-field.open .finder-chev{transform:rotate(180deg)}
+.finder-menu{display:none;position:absolute;z-index:40;left:-1px;right:-1px;top:100%;margin:0;padding:6px;list-style:none;background:var(--paper-2);border:1px solid var(--rule);box-shadow:0 26px 50px -18px rgba(12,20,14,.42)}
+.finder-field.open .finder-menu{display:block}
+.finder-menu button{display:flex;width:100%;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;border:0;background:transparent;font:500 15px 'DM Sans',sans-serif;color:var(--ink);text-align:left;cursor:pointer}
+.finder-menu button small{font:500 11px 'DM Mono',monospace;color:var(--fog);letter-spacing:.06em;text-transform:uppercase}
+.finder-menu button:hover:not(:disabled){background:rgba(49,66,51,.09)}
+.finder-menu button[aria-selected=true]{background:var(--moss);color:#fff}
+.finder-menu button[aria-selected=true] small{color:#cfd9cb}
+.finder-menu button:disabled{opacity:.42;cursor:not-allowed}
+.finder-go{display:flex;align-items:center;gap:14px;padding:0 42px;border:0;background:var(--moss);color:#fff;font:500 12px 'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.finder-go:hover,.finder-go:focus-visible{background:var(--deep)}
+@media(max-width:860px){
+  .finder-wrap{margin-top:-30px}
+  .finder{grid-template-columns:1fr}
+  .finder-field{border-right:0;border-bottom:1px solid var(--rule)}
+  .finder-trigger{padding:16px 20px 15px}
+  .finder-value{font-size:16px}
+  .finder-go{justify-content:center;padding:20px}
+}
+
+/* ---------- Listing card (same card on Home and Homes) ---------- */
+.hcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 24px}
+.hcard{position:relative}
+.hcard-img{display:block;position:relative;aspect-ratio:4/3.15;overflow:hidden;background:#d7d0c2}
+.hcard-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.hcard:hover .hcard-img img{transform:scale(1.04)}
+.hcard-badge{position:absolute;left:12px;top:12px;max-width:calc(100% - 74px);background:var(--paper);padding:6px 9px;font:500 10px/1.3 'DM Mono',monospace;letter-spacing:.07em;text-transform:uppercase;color:var(--deep)}
+.hcard-save{position:absolute;right:12px;top:12px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(244,240,229,.95);font-size:16px;line-height:1;color:var(--deep);cursor:pointer;transition:transform .15s}
+.hcard-save:hover{transform:scale(1.08)}
+.hcard-save.saved{color:#b4543a}
+.hcard-body{padding-top:16px}
+.hcard-price{font:500 14px 'DM Mono',monospace;letter-spacing:.02em}
+.hcard-title{font:500 27px/1.06 'Playfair Display',Georgia,serif;margin:9px 0 9px}
+.hcard-title a{background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .3s}
+.hcard-title a:hover{background-size:100% 1px}
+.hcard-meta{margin:0;color:var(--fog);font-size:13.5px!important;line-height:1.6!important}
+.hcard-trust{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);font:500 10.5px/1.4 'DM Mono',monospace;letter-spacing:.05em;text-transform:uppercase;color:#566055}
+.hcard-trust span:before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--moss);margin-right:7px;vertical-align:1px}
+.is-concept .hcard-trust span:before{background:var(--sand)}
+@media(max-width:980px){.hcards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.hcards{grid-template-columns:1fr}.hcard-title{font-size:25px}}
+
+/* ---------- Category shelf ---------- */
+.shelf{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.tile{position:relative;display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:4/5.1;overflow:hidden;padding:22px 20px;background:var(--deep);color:#fff}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.tile:hover img{transform:scale(1.06)}
+.tile:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,18,13,.92) 0,rgba(10,18,13,.62) 34%,rgba(10,18,13,.12) 66%,rgba(10,18,13,0))}
+.tile>*{position:relative;z-index:1}
+.tile-kicker{position:absolute!important;left:14px;top:14px;background:rgba(244,240,229,.94);color:var(--deep);padding:5px 8px;font:500 10px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase}
+.tile-count{font:500 11px 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#e2eadd;margin-bottom:9px}
+.tile-title{font:500 27px/1.04 'Playfair Display',Georgia,serif;text-shadow:0 1px 14px rgba(0,0,0,.35)}
+.tile-go{position:absolute!important;right:14px;top:14px;width:34px;height:34px;border-radius:50%;background:#f4f0e6;color:var(--deep);display:grid;place-items:center;font-size:15px;opacity:0;transform:scale(.8);transition:opacity .3s,transform .3s}
+.tile:hover .tile-go,.tile:focus-visible .tile-go{opacity:1;transform:none}
+.ghosts{display:flex;flex-wrap:wrap;align-items:center;gap:10px 10px;margin-top:22px;padding-top:20px;border-top:1px solid var(--rule)}
+.ghosts .mono{color:var(--fog);margin-right:6px}
+.ghost{padding:9px 14px;border:1px dashed rgba(28,37,29,.38);font:500 14px 'DM Sans',sans-serif;color:var(--ink);transition:background .2s,border-color .2s}
+.ghost:hover{background:rgba(49,66,51,.08);border-color:var(--moss)}
+.ghosts .link{margin-left:auto}
+@media(max-width:1100px){.shelf{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){
+  .shelf{display:flex;overflow-x:auto;gap:12px;margin:0 -16px;padding:0 16px 6px;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .shelf::-webkit-scrollbar{display:none}
+  .tile{flex:0 0 72%;scroll-snap-align:start;aspect-ratio:4/5}
+  .ghosts .link{margin-left:0}
+}
+
+/* ---------- Footer ---------- */
+.site-footer{border-top:1px solid var(--rule);background:var(--paper)}
+.foot{display:grid;grid-template-columns:1.2fr 1fr;gap:28px 60px;padding:56px 0 46px}
+.foot-brand p{max-width:360px;margin:14px 0 0;color:var(--fog);font-size:14px!important;line-height:1.6!important}
+.foot-nav{display:flex;flex-wrap:wrap;gap:12px 28px;align-content:start;font-size:14px}
+.foot-nav a:hover{text-decoration:underline;text-underline-offset:4px}
+.foot-note{grid-column:1/-1;margin:0;padding-top:20px;border-top:1px solid var(--rule);color:var(--fog);font-size:12.5px!important;line-height:1.65!important}
+.foot-note a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:760px){.foot{grid-template-columns:1fr;padding:44px 0 36px}}
+
+/* ---------- Mobile menu drawer ---------- */
+.drawer{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;padding:0 22px 30px;background:var(--deep);color:#f4f0e6}
+.drawer[hidden]{display:none}
+.drawer-top{height:65px;display:flex;align-items:center;justify-content:space-between}
+.drawer-close{border:0;background:none;color:inherit;font:500 11px 'DM Mono',monospace;letter-spacing:.1em;cursor:pointer}
+.drawer nav{display:flex;flex-direction:column;flex:1;margin-top:26px}
+.drawer nav a{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.14);font:500 40px/1 'Playfair Display',Georgia,serif}
+.drawer-cta{margin-top:24px;padding:18px}
+
+
+/* ---------- Sticky navigation (appears on scroll up) ---------- */
+.sn{position:fixed;left:0;right:0;top:0;z-index:50;background:rgba(241,239,232,.96);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);transform:translateY(-102%);transition:transform .32s cubic-bezier(.2,.7,.2,1);box-shadow:0 12px 30px -22px rgba(12,20,14,.5)}
+.sn.show{transform:none}
+.sn-in{height:62px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.sn-links{display:flex;align-items:center;gap:26px;font-size:13px}
+.sn-links a:not(.button){padding:5px 0}
+.sn-links a:not(.button):hover,.sn-links a[aria-current=page]{box-shadow:0 1px 0 currentColor}
+.sn-links .button{border:1px solid currentColor;padding:9px 12px;font:500 10px 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase}
+.sn-links .button:hover{background:var(--moss);color:#fff;border-color:var(--moss)}
+.sn-menu{display:none;border:0;background:none;color:var(--ink);font:500 11px 'DM Mono',monospace;letter-spacing:.08em;cursor:pointer}
+@media(max-width:760px){.sn-in{height:56px}.sn-links{display:none}.sn-menu{display:block}}
+@media print{.sn,.lb{display:none!important}}
+
+/* ---------- Lightbox ---------- */
+main figure img,.sheet a{cursor:zoom-in}
+.lb{position:fixed;inset:0;z-index:80;background:rgba(8,12,10,.985);display:flex;align-items:center;justify-content:center}
+.lb[hidden]{display:none}
+.lb-top{position:absolute;left:0;right:0;top:0;height:58px;padding:0 22px;display:flex;align-items:center;justify-content:space-between;color:#e9efe5;z-index:2}
+.lb-count{font:500 12px 'DM Mono',monospace;letter-spacing:.12em}
+.lb-close{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.06);color:#fff;padding:9px 14px;font:500 11px 'DM Mono',monospace;letter-spacing:.1em;cursor:pointer}
+.lb-close:hover{background:rgba(255,255,255,.18)}
+.lb-stage{margin:0;max-width:100%;padding:64px 74px 70px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;width:100%;height:100%}
+.lb-stage img{max-width:100%;max-height:100%;min-height:0;object-fit:contain;display:block;transition:opacity .25s;box-shadow:0 24px 70px rgba(0,0,0,.55)}
+.lb.is-loading .lb-stage img{opacity:.25}
+.lb-cap{flex:none;color:#cdd7c9;font:500 11px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase;text-align:center;max-width:720px}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.07);color:#fff;font:400 32px/1 'DM Sans',sans-serif;padding:0 0 4px;cursor:pointer;transition:background .2s}
+.lb-nav:hover{background:rgba(255,255,255,.2)}
+.lb-prev{left:14px}.lb-next{right:14px}
+@media(max-width:760px){
+  .lb-stage{padding:56px 0 64px}
+  .lb-stage img{width:100%;box-shadow:none}
+  .lb-nav{top:auto;bottom:10px;transform:none;width:44px;height:44px;font-size:28px}
+  .lb-prev{left:14px}.lb-next{right:14px}
+  .lb-cap{padding:0 70px;font-size:10px}
+}
+
+/* ---------- 'More homes' strip on listing pages ---------- */
+.relate{padding:10px 0 80px}.relate .hcards{margin-top:6px}
+@media(max-width:860px){.relate{padding-bottom:50px}}
+
+/* ---------- Prices: baht glyph + lining figures ---------- */
+@font-face{font-family:'Playfair Display';src:url(assets/fonts/baht-serif.woff2) format('woff2');font-weight:400 900;font-style:normal;unicode-range:U+0E3F}
+@font-face{font-family:'DM Sans';src:url(assets/fonts/baht-sans.woff2) format('woff2');font-weight:400 700;font-style:normal;unicode-range:U+0E3F}
+@font-face{font-family:'DM Mono';src:url(assets/fonts/baht-sans.woff2) format('woff2');font-weight:400 500;font-style:normal;unicode-range:U+0E3F}
+body{font-variant-numeric:lining-nums}
+.px{display:inline-flex;align-items:baseline;white-space:nowrap;font-variant-numeric:lining-nums tabular-nums}
+.px-c{font-size:.64em;margin-right:.14em;position:relative;top:-.2em;letter-spacing:0}
+.px-u{font:600 .5em/1 'DM Sans',sans-serif;letter-spacing:.06em;margin-left:.2em;text-transform:none}
+.px-note{font:500 11px/1.2 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--fog);margin-left:10px;white-space:normal}
+.hcard-price{font:600 19px/1.2 'DM Sans',sans-serif!important;letter-spacing:0!important;color:var(--ink)}
+.hcard-price .px-c{font-size:.72em;top:-.16em}.hcard-price .px-u{font-size:.62em}
+.price-card strong .px-c{top:-.12em}
+#bvMeta .px{font-size:1.2em;font-weight:600}
+#bvMeta .px-c{top:-.12em}
+.price .px-c{font-size:.92em;top:0}.price .px-u{font-size:.9em;font-family:inherit;font-weight:inherit}
+
+/* ---------- Language switch ---------- */
+.lang{display:inline-flex;align-items:center;gap:2px;margin:0 8px 0 4px;font:500 11px/1 'DM Mono',monospace;letter-spacing:.06em}
+.lang button{background:none;border:0;padding:7px 6px;color:inherit;opacity:.5;cursor:pointer;font:inherit;letter-spacing:inherit;border-bottom:1px solid transparent}
+.lang button:hover{opacity:.85}
+.lang button[aria-pressed=true]{opacity:1;border-bottom-color:currentColor}
+.lang button+button{margin-left:2px}
+.drawer-top .lang{margin-left:auto;margin-right:14px}
+
+/* ---------- Thai ----------
+   Thai glyphs ride on the existing font names (unicode-range), so no font stack needs rewriting.
+   Serif headings: Noto Serif Thai. Text and labels: IBM Plex Sans Thai. Files are only fetched when a page has Thai text. */
+@font-face{font-family:'Playfair Display';src:url(assets/fonts/th-serif-400.woff2) format('woff2');font-weight:100 400;font-style:normal;unicode-range:U+0E00-0E7F;size-adjust:108%}
+@font-face{font-family:'Playfair Display';src:url(assets/fonts/th-serif-500.woff2) format('woff2');font-weight:500;font-style:normal;unicode-range:U+0E00-0E7F;size-adjust:108%}
+@font-face{font-family:'Playfair Display';src:url(assets/fonts/th-serif-600.woff2) format('woff2');font-weight:600 900;font-style:normal;unicode-range:U+0E00-0E7F;size-adjust:108%}
+@font-face{font-family:'DM Sans';src:url(assets/fonts/th-sans-400.woff2) format('woff2');font-weight:100 400;font-style:normal;unicode-range:U+0E00-0E7F;size-adjust:104%}
+@font-face{font-family:'DM Sans';src:url(assets/fonts/th-sans-500.woff2) format('woff2');font-weight:500;font-style:normal;unicode-range:U+0E00-0E7F;size-adjust:104%}
+@font-face{font-family:'DM Sans';src:url(assets/fonts/th-sans-600.woff2) format('woff2');font-weight:600 900;font-style:normal;unicode-range:U+0E00-0E7F;size-adjust:104%}
+@font-face{font-family:'DM Mono';src:url(assets/fonts/th-sans-500.woff2) format('woff2');font-weight:100 900;font-style:normal;unicode-range:U+0E00-0E7F}
+@font-face{font-family:'Manrope';src:url(assets/fonts/th-sans-400.woff2) format('woff2');font-weight:100 500;font-style:normal;unicode-range:U+0E00-0E7F;size-adjust:104%}
+@font-face{font-family:'Manrope';src:url(assets/fonts/th-sans-600.woff2) format('woff2');font-weight:600 900;font-style:normal;unicode-range:U+0E00-0E7F;size-adjust:104%}
+/* rhythm: Thai stacks tone marks above and below the line */
+html[lang=th] body{line-height:1.75}
+html[lang=th] p,html[lang=th] li,html[lang=th] .text{line-height:1.8}
+html[lang=th] h1,html[lang=th] h2,html[lang=th] h3,html[lang=th] h4,html[lang=th] .title,html[lang=th] .display,html[lang=th] .hcard-title{line-height:1.3!important;letter-spacing:0!important}
+/* letter-spaced uppercase mono labels do not exist in Thai */
+html[lang=th] .eyebrow,html[lang=th] .mono,html[lang=th] small,html[lang=th] .finder-label,html[lang=th] .finder-go,html[lang=th] .hcard-badge,html[lang=th] .hcard-trust span,html[lang=th] .btn,html[lang=th] .px-note,html[lang=th] .nav a,html[lang=th] .hero-credit,html[lang=th] .lang,html[lang=th] .menu,html[lang=th] .sn-menu,html[lang=th] .drawer-close,html[lang=th] .lb-close{letter-spacing:.02em!important;text-transform:none!important}
+html[lang=th] .eyebrow,html[lang=th] .finder-label{font-size:13px!important}
+html[lang=th] .hcard-badge,html[lang=th] .hcard-trust span,html[lang=th] .px-note{font-size:12.5px!important}
+html[lang=th] .nav a,html[lang=th] .sn-links a{font-size:15px}
+html[lang=th] .btn,html[lang=th] .finder-go{font-size:14px!important}
+html[lang=th] .fact-list small{font-size:12.5px!important}
+/* the unit word needs to be readable, not a tiny M */
+html[lang=th] .px-u{font:500 .62em/1 'DM Sans',sans-serif;letter-spacing:0;margin-left:.28em}
+html[lang=th] .hcard-price .px-u{font-size:.7em}
+html[lang=th] .display{font-weight:500}
+html[lang=th] .hcard-title{font-size:27px}
+html[lang=th] .story h2{font-size:clamp(38px,4vw,54px)}
+/* Thai cannot take a drop cap: it would split a consonant from its vowel and tone marks */
+html[lang=th] .story p.lede:first-letter{float:none;font:inherit;padding:0;color:inherit}
+html[lang=th] .story p.lede{font-size:21px}
+html[lang=th] .display.th-h{font-weight:400;font-size:clamp(44px,5.6vw,92px)}
+html[lang=th] .property-hero .display.th-h{font-size:clamp(40px,5vw,78px)}
+html[lang=th] .title.th-h,html[lang=th] h2.th-h{font-weight:500}
+html[lang=th] .property-hero:before{letter-spacing:.02em;text-transform:none;font-size:12px}
+
+/* ---- forms: prototype vs live mode (config.js sets html.hb-live when an endpoint is set) ---- */
+html:not(.hb-live) [data-live]{display:none!important}
+html.hb-live [data-proto]{display:none!important}
+.hp-field{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+.form-status{color:#9c3a2a;font-size:14px;line-height:1.5;margin-top:12px;min-height:1.2em}
+.form-status:empty{margin:0;min-height:0}
+button:disabled{opacity:.6;cursor:progress}
+.refline b{font:500 18px 'DM Mono',ui-monospace,monospace;letter-spacing:.04em}

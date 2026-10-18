@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Collections — HOMES/BKK</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+.c-hero{padding:76px 0 84px;background:#e7e2d7}
+.c-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.c-hero .display{font-size:clamp(52px,6.6vw,104px);margin:12px 0 22px}
+.c-hero p{max-width:440px;margin:0}
+.c-hero-img{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.c-hero-img img{width:100%;aspect-ratio:4/5.3;object-fit:cover;display:block}
+.c-hero-img img:last-child{margin-top:48px}
+
+.issue{display:grid;grid-template-columns:1.2fr .8fr;min-height:560px;color:#fff;background:var(--deep)}
+.issue img{width:100%;height:100%;object-fit:cover;display:block}
+.issue-copy{padding:48px;display:flex;flex-direction:column;justify-content:space-between;gap:30px}
+.issue-copy h2{font:500 clamp(42px,4.6vw,64px)/.96 'Playfair Display',serif;margin:12px 0}
+
+.collection-list{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.collection-list a{min-height:340px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;background:#c9c2b3;color:var(--deep);transition:transform .3s}
+.collection-list a:hover{transform:translateY(-3px)}
+.collection-list a:nth-child(2){background:var(--moss);color:#f5f1e9}
+.collection-list a:nth-child(3){background:#e2ded3}
+.collection-list h3{font:500 38px/1 'Playfair Display',serif;margin:10px 0}
+
+.sponsor{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;padding:40px;border:1px dashed rgba(28,37,29,.38)}
+.sponsor h3{margin:8px 0 10px;font:500 32px/1.08 'Playfair Display',serif}
+.sponsor p{margin:0;max-width:560px;color:var(--fog)}
+
+@media(max-width:860px){
+  .c-hero{padding:48px 0 56px}
+  .c-hero-grid,.issue,.collection-list,.sponsor{grid-template-columns:1fr}
+  .c-hero-grid{gap:34px}
+  .issue img{height:340px}
+  .issue-copy{min-height:340px;padding:30px 22px}
+  .sponsor{padding:28px 22px}
+}
+</style>
+</head>
+<body>
+<div class="shell"><header class="topbar"><a class="brand" href="index.html">HOMES/<i>BKK</i></a><nav class="nav"><a href="collections.html">Collections</a><a href="marketplace.html">Homes</a><a href="map.html">Map</a><a href="spaces.html">Spaces</a><a href="projects.html">Projects</a><a href="journal.html">Journal</a><a class="button" href="the-home-edit.html">Submit a home</a></nav><button class="menu" data-modal>MENU +</button></header></div>
+<main>
+<section class="c-hero"><div class="shell c-hero-grid">
+  <div>
+    <div class="eyebrow">The editorial layer</div>
+    <h1 class="display">Not filters.<br>Points of view.</h1>
+    <p class="text">Collections are how HOMES/BKK gives strong homes context and a reason to be remembered. They are chosen by our editors and are never paid placement.</p>
+  </div>
+  <div class="c-hero-img">
+    <img src="assets/tristan-condo/tristan-living-dog.jpg" alt="Dog resting on the living room rug at Tristan Condo">
+    <img src="assets/hyde-sukhumvit-11/hyde-bedroom-view.jpg" alt="Bedroom looking out over the Bangkok skyline">
+  </div>
+</div></section>
+
+<section class="shell section" id="quiet-city" style="padding-bottom:0">
+  <a class="issue" href="collection-quiet-city.html">
+    <img src="assets/tristan-condo/tristan-balcony.jpg" alt="A planted balcony with string lights above the city">
+    <div class="issue-copy">
+      <div><div class="eyebrow" style="color:#cad4c6">The Bangkok Edit / Issue 01</div><h2>The Quiet City.</h2><p class="text" style="color:#d4ddd0"><span data-count-tag="quiet"></span> selected for light, privacy and the small conditions that make Bangkok feel slower.</p></div>
+      <span class="link">Open the issue ↗</span>
+    </div>
+  </a>
+</section>
+
+<section class="shell section" id="all-collections">
+  <div class="rule-head"><div><div class="eyebrow">Browse the collections</div><h2 class="title">Every way into a home.</h2></div><a class="link" href="marketplace.html">Browse all homes ↗</a></div>
+  <div class="shelf" id="coll-shelf" data-shelf="all"></div>
+  <div class="ghosts" data-ghosts="coll-shelf"></div>
+</section>
+
+<section class="shell section" id="pet-friendly">
+  <div class="rule-head"><div><div class="eyebrow">Collection 01 / <span data-count-tag="pet-friendly"></span></div><h2 class="title">Pet-friendly city homes.</h2></div><a class="link" href="marketplace.html?tag=pet-friendly">See them in Homes ↗</a></div>
+  <div class="issue"><img src="assets/tristan-condo/tristan-living-dog.jpg" alt="Tristan Condo pet-friendly living room"><div class="issue-copy"><div><div class="eyebrow" style="color:#cad4c6">Why this is a collection, not a tag</div><h2>Room for your actual life.</h2><p class="text" style="color:#d4ddd0">A pet-friendly claim means more when you can see it in the home itself. At Tristan Condo the pet bowls sit by the kitchen counter and a dog rests on the rug. The two W8 Thonglor homes sit in a low-rise whose owner welcomes dogs up to 20 kg.</p></div><a class="link" style="color:#fff" href="property-tristan-condo.html">Read the Tristan Condo story ↗</a></div></div>
+  <div class="hcards" data-homes-tag="pet-friendly" style="margin-top:34px"></div>
+</section>
+
+<section class="shell section" id="work-from-home" style="padding-top:0">
+  <div class="rule-head"><div><div class="eyebrow">Collection 02 / current record</div><h2 class="title">Work-from-home ready.</h2></div><a class="link" href="property-tristan-condo.html">See the home office ↗</a></div>
+  <div class="collection-list">
+    <a href="property-tristan-condo.html"><div><div class="eyebrow">Featured now</div><h3>Tristan Condo</h3><p class="text">A true second bedroom currently set up as a home office, not a laptop corner staged for a photo.</p></div><span class="link">Read the story ↗</span></a>
+    <a href="property-w8-thonglor-88-88.html"><div><div class="eyebrow" style="color:#d1dccd">Worth a look</div><h3>W8 Thonglor 88/88</h3><p class="text" style="color:#d1dccd">Several bedrooms have a desk set into a tall window. Not yet tagged as a work-from-home home, because the set-up is the owner’s, not a dedicated office.</p></div><span class="link">View the home ↗</span></a>
+    <a href="marketplace.html"><div><div class="eyebrow">Next action</div><h3>Search all homes.</h3><p class="text">Collections create context; Homes is where you compare price, source and available facts.</p></div><span class="link">Browse homes ↗</span></a>
+  </div>
+</section>
+
+
+<section class="shell section" id="sponsored" style="padding-top:0">
+  <div class="rule-head"><div><div class="eyebrow">From owners &amp; partners</div><h2 class="title">Sponsored features.</h2></div></div>
+  <div class="sponsor">
+    <div><div class="eyebrow">Not open yet</div><h3>No sponsored placements today.</h3><p>When an owner or developer funds a feature, it will live here—labelled “Sponsored” on every card and never mixed into an editorial collection.</p></div>
+    <a class="btn" href="the-home-edit.html">How features work ↗</a>
+  </div>
+</section>
+</main>
+<footer data-site-footer></footer>
+
+<script src="config.js"></script><script src="i18n-th.js"></script><script src="homes-data.js"></script><script src="live.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

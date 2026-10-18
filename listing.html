@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home — HOMES/BKK</title>
+<meta name="description" content="A home listed on HOMES/BKK.">
+<link rel="stylesheet" href="shared.css">
+<link rel="stylesheet" href="listing.css">
+<link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
+<style>
+.ld-top{padding:34px 0 22px}
+.ld-top h1{font:500 clamp(34px,4.4vw,64px)/1 'Playfair Display',serif;margin:12px 0 10px;max-width:880px}
+.ld-top .place{color:var(--fog);font-size:15px}
+.gal{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr));gap:8px;height:min(60vh,540px);margin-bottom:6px}
+.gal button{border:0;padding:0;background:var(--warm);cursor:zoom-in;overflow:hidden;position:relative}
+.gal button img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.gal button:hover img{transform:scale(1.03)}
+.gal .g0{grid-row:1/3}
+.gal.one{grid-template-columns:1fr}.gal.one .g0{grid-row:auto}
+.gal.two{grid-template-rows:1fr}.gal.two .g0{grid-row:auto}
+.gal .more{position:absolute;right:10px;bottom:10px;background:rgba(21,34,29,.88);color:#fff;font:500 11px 'DM Mono',monospace;letter-spacing:.06em;padding:8px 10px}
+.ld-main{display:grid;grid-template-columns:1fr 380px;gap:7vw;padding:54px 0 30px;align-items:start}
+.ld-main .story p{white-space:pre-line}
+.ld-facts{list-style:none;margin:0 0 26px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));border-top:1px solid var(--ink)}
+.ld-facts li{padding:14px 0;border-bottom:1px solid var(--line);font-size:15px}
+.ld-facts small{display:block;color:var(--fog);font:500 9px 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.ld-tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+.ld-tags a{border:1px solid var(--ink);padding:6px 11px;font-size:13px;color:var(--ink);text-decoration:none}
+#ldMap{height:360px;background:#e6e2d6;margin-top:14px;z-index:1}
+.ld-loc h2{font:500 clamp(28px,3vw,40px)/1.05 'Playfair Display',serif;margin:0 0 6px}
+.ld-loc p{color:var(--fog);margin:0}
+.ld-by{margin-top:18px;font-size:13px!important;color:var(--fog)}
+.ld-by b{color:var(--ink)}
+.lb{position:fixed;inset:0;background:rgba(10,16,12,.94);z-index:2000;display:none;align-items:center;justify-content:center}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:84vh;object-fit:contain}
+.lb button{position:absolute;background:rgba(255,255,255,.12);color:#fff;border:0;width:46px;height:46px;font-size:22px;cursor:pointer}
+.lb .x{top:16px;right:16px}.lb .p{left:16px;top:50%}.lb .n{right:16px;top:50%}
+.lb .c{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#ccd5c9;font:500 12px 'DM Mono',monospace;letter-spacing:.08em}
+.ld-missing{padding:120px 0;text-align:center}
+.ld-missing h1{font:500 clamp(34px,4vw,56px)/1.05 'Playfair Display',serif}
+@media(max-width:900px){.ld-main{grid-template-columns:1fr;gap:34px}.gal{grid-template-columns:1fr 1fr;grid-template-rows:2fr 1fr;height:auto;aspect-ratio:4/3.4}.gal .g0{grid-column:1/3;grid-row:1}}
+</style>
+</head>
+<body>
+<div class="shell"><header class="topbar"><a class="brand" href="index.html">HOMES/<i>BKK</i></a><nav class="nav"><a href="collections.html">Collections</a><a href="marketplace.html">Homes</a><a href="map.html">Map</a><a href="spaces.html">Spaces</a><a href="projects.html">Projects</a><a href="journal.html">Journal</a><a class="button" href="the-home-edit.html">Submit a home</a></nav><button class="menu" data-modal>MENU +</button></header></div>
+<main id="root"><div class="shell ld-missing" id="loading"><p class="eyebrow">Loading the home…</p></div></main>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photos"><button class="x" type="button" aria-label="Close">×</button><button class="p" type="button" aria-label="Previous photo">‹</button><img alt=""><button class="n" type="button" aria-label="Next photo">›</button><div class="c"></div></div>
+<footer data-site-footer></footer>
+
+<script src="config.js"></script>
+<script src="i18n-th.js"></script><script src="homes-data.js"></script><script src="live.js"></script>
+<script src="shared.js"></script>
+<script src="assets/vendor/leaflet/leaflet.js"></script>
+<script>
+document.addEventListener('hb-ready', async () => {
+  const C = window.HB_CONFIG, esc = HB.esc, root = document.getElementById('root');
+  const id = new URLSearchParams(location.search).get('id') || '';
+  const T = (en, th) => HB.th ? th : en;
+  let p = (HB.listings || []).find(x => x.id === id);
+  if (!p && HB.listingMode === 'live' && id) {
+    try { const j = await fetch(C.endpoint + '?action=listing&id=' + encodeURIComponent(id)).then(r => r.json()); if (j && j.ok) p = j.listing; } catch (e) { /* not found below */ }
+  }
+  if (!p || !p.photos || !p.photos.length) {
+    document.title = 'Home not found — HOMES/BKK';
+    root.innerHTML = '<div class="shell ld-missing"><p class="eyebrow">Listing</p><h1>This home is no longer listed.</h1><p class="text">It may have been let or sold, or the link is out of date.</p><p><a class="btn" href="marketplace.html">See all homes</a></p></div>';
+    HB.translate(root); return;
+  }
+  const title = (HB.th && p.title_th) || p.title, story = (HB.th && p.story_th) || p.story;
+  document.title = title + ' — HOMES/BKK';
+  const home = HB.HOMES.find(h => h.id === p.id);
+  const area = HB.AREAS[p.area] || '';
+  const num = n => Number(n).toLocaleString('en-US');
+  const prices = [];
+  if (p.intents.includes('buy') && p.price_sale) prices.push('฿' + (p.price_sale >= 1e6 ? +(p.price_sale / 1e6).toFixed(2) + 'M' : num(p.price_sale)) + ' · for sale');
+  if (p.intents.includes('rent') && p.price_rent) prices.push('฿' + num(p.price_rent) + ' / month · rent');
+  const TYPE_TH = { Condo: 'คอนโด', House: 'บ้านเดี่ยว', Townhome: 'ทาวน์โฮม', Duplex: 'ดูเพล็กซ์', Penthouse: 'เพนต์เฮาส์', Villa: 'วิลล่า', Other: 'อื่นๆ' };
+  const FURN = { fully: ['Fully furnished', 'เฟอร์นิเจอร์ครบ'], partly: ['Partly furnished', 'เฟอร์นิเจอร์บางส่วน'], none: ['Unfurnished', 'ไม่มีเฟอร์นิเจอร์'] };
+  const facts = [
+    [T('Type', 'ประเภท'), esc(HB.th ? (TYPE_TH[p.type] || p.type) : p.type)],
+    p.beds !== null && p.beds !== undefined ? [T('Bedrooms', 'ห้องนอน'), p.beds === 0 ? T('Studio', 'สตูดิโอ') : p.beds] : null,
+    p.baths !== null && p.baths !== undefined ? [T('Bathrooms', 'ห้องน้ำ'), p.baths] : null,
+    p.size ? [T('Size', 'พื้นที่ใช้สอย'), p.size + T(' sqm', ' ตร.ม.')] : null,
+    p.floor ? [T('Floor', 'ชั้น'), esc(p.floor)] : null,
+    p.furnished ? [T('Furnishing', 'เฟอร์นิเจอร์'), FURN[p.furnished][HB.th ? 1 : 0]] : null,
+    [T('Pets', 'สัตว์เลี้ยง'), p.pets ? T('Welcome', 'ยินดีต้อนรับ') : T('Ask first', 'สอบถามก่อน')]
+  ].filter(Boolean);
+  const ph = p.photos.map(x => HB.photo(x, 1600)), th = p.photos.map(x => HB.photo(x, 800));
+  const cls = ph.length === 1 ? 'one' : ph.length === 2 ? 'two' : '';
+  const shown = th.slice(0, 3);
+  const by = esc(p.by || 'HOMES/BKK');
+  root.innerHTML = `
+  <section class="shell ld-top"><div class="eyebrow">${T('Home', 'บ้าน')} / ${esc(p.place)}</div><h1>${esc(title)}</h1><div class="place">${esc(p.place)}${area ? ' · ' + esc(area) : ''}</div></section>
+  <div class="shell"><div class="gal ${cls}">${shown.map((s, i) => `<button type="button" class="g${i}" data-i="${i}" aria-label="${T('Open photo', 'เปิดรูป')} ${i + 1}"><img src="${esc(i === 0 ? ph[0] : s)}" alt="${i === 0 ? esc(title) : ''}">${i === shown.length - 1 && ph.length > 3 ? `<span class="more">+${ph.length - 3} ${T('photos', 'รูป')}</span>` : ''}</button>`).join('')}</div></div>
+  <section class="shell ld-main">
+    <div class="story">
+      <ul class="ld-facts">${facts.map(f => `<li><small>${f[0]}</small>${f[1]}</li>`).join('')}</ul>
+      ${p.tags && p.tags.length ? `<div class="ld-tags">${p.tags.filter(t => HB.TAGS[t]).map(t => `<a href="marketplace.html?tag=${t}">${esc(HB.TAGS[t].short)}</a>`).join('')}</div>` : ''}
+      ${story ? story.split(/\n{2,}/).map((x, i) => `<p${i === 0 ? ' class="lede"' : ''}>${esc(x)}</p>`).join('') : ''}
+      <section class="ld-loc" style="margin-top:46px"><h2>${T('Where it is', 'ทำเลที่ตั้ง')}</h2><p>${T('The circle shows the approximate area, not the address. The exact address is shared when a viewing is booked.', 'วงกลมแสดงบริเวณโดยประมาณ ไม่ใช่ที่อยู่จริง ที่อยู่เต็มจะแจ้งเมื่อนัดชมแล้ว')}</p><div id="ldMap" role="application" aria-label="${T('Approximate location', 'ตำแหน่งโดยประมาณ')}"></div></section>
+    </div>
+    <aside class="factcard">
+      <div class="eyebrow">${T('Listing', 'รายการ')}</div>
+      ${prices.map((x, i) => `<p class="price-big"${i ? ' style="font-size:24px"' : ''}>${esc(x)}</p>`).join('')}
+      <p class="sub">${T('Confirmed', 'ยืนยันล่าสุด')} ${esc(HB.ago(p.confirmed_at || p.published_at))}</p>
+      <a class="btn" href="book-viewing.html?home=${encodeURIComponent(p.id)}">${T('Request a private viewing ↗', 'ขอนัดชมแบบส่วนตัว ↗')}</a>
+      <p class="ld-by">${T('Listed by', 'ลงประกาศโดย')} <b>${by}</b>${p.by_role ? ' · ' + (p.by_role === 'partner' ? T('Partner', 'พาร์ทเนอร์') : p.by_role === 'admin' ? 'HOMES/BKK' : T('Agent', 'เอเจนต์')) : ''}.<br>${T('Prices and availability are given by the lister and confirmed regularly.', 'ราคาและความพร้อมให้เช่า/ขายระบุโดยผู้ลงประกาศ และมีการยืนยันเป็นระยะ')}</p>
+    </aside>
+  </section>
+  <section class="shell relate"><div class="eyebrow">${T('More like this', 'บ้านที่คล้ายกัน')}</div><div class="hcards" data-related="${esc(p.id)}"></div></section>`;
+  HB.renderShelves(); HB.prettyPrices(root); HB.translate(root);
+
+  /* approximate-location map */
+  if (typeof p.lat === 'number') {
+    const r = (home && home.geoR) || C.mapCircleMeters;
+    const m = L.map('ldMap', { scrollWheelZoom: false }).setView([p.lat, p.lng], 14);
+    L.tileLayer(C.mapTiles, { attribution: C.mapAttribution, maxZoom: 18 }).addTo(m);
+    L.circle([p.lat, p.lng], { radius: r, color: '#314233', weight: 1.5, fillColor: '#314233', fillOpacity: .16 }).addTo(m);
+    setTimeout(() => m.invalidateSize(), 150);
+  } else { const el = document.getElementById('ldMap'); if (el) el.parentNode.removeChild(el); }
+
+  /* lightbox */
+  const lb = document.getElementById('lb'), img = lb.querySelector('img'), cap = lb.querySelector('.c'); let cur = 0;
+  const show = i => { cur = (i + ph.length) % ph.length; img.src = ph[cur]; cap.textContent = (cur + 1) + ' / ' + ph.length; };
+  document.querySelector('.gal').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; show(+b.dataset.i); lb.classList.add('open'); });
+  lb.addEventListener('click', e => {
+    if (e.target.closest('.x') || e.target === lb) lb.classList.remove('open');
+    else if (e.target.closest('.p')) show(cur - 1); else if (e.target.closest('.n')) show(cur + 1);
+  });
+  document.addEventListener('keydown', e => { if (!lb.classList.contains('open')) return; if (e.key === 'Escape') lb.classList.remove('open'); if (e.key === 'ArrowLeft') show(cur - 1); if (e.key === 'ArrowRight') show(cur + 1); });
+});
+</script>
+</body>
+</html>

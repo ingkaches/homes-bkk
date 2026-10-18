@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOMES/BKK — Curated homes in Bangkok</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+.hero{--img:url('assets/the-sukhothai-residences/sukhothai-living-hero.jpg') center 55%/cover;position:relative;min-height:min(88vh,800px);color:#fff;background:linear-gradient(90deg,rgba(11,18,14,.5),rgba(11,18,14,0) 60%),linear-gradient(0deg,rgba(11,18,14,.46),transparent 34%),url('assets/the-sukhothai-residences/sukhothai-living-hero.jpg') center 55%/cover}
+.hero-credit{position:absolute;right:32px;bottom:70px;font:500 10.5px 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.8);text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.hero .display{text-shadow:0 2px 28px rgba(8,14,10,.45)}
+.hero-inner{min-height:min(88vh,800px);display:flex;flex-direction:column}
+.hero .topbar{border-color:rgba(255,255,255,.3)}
+.hero .nav .button{border-color:rgba(255,255,255,.7)}
+.hero .nav .button:hover{background:#fff;color:var(--deep)}
+.hero-copy{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 104px}
+.hero .display{max-width:880px;color:#fff;font-size:clamp(56px,7.4vw,124px);margin:16px 0 26px}
+.hero-copy p{max-width:500px;margin:0;color:#f1f1ec;font-size:17px!important}
+
+.browse{padding:104px 0 0}
+.section-lead{max-width:520px;margin:14px 0 0}
+
+.edit{display:grid;grid-template-columns:1.4fr .9fr;gap:18px}
+.edit-main{position:relative;display:block;height:580px;overflow:hidden;color:#fff;background:var(--deep)}
+.edit-main img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.edit-main:hover img{transform:scale(1.03)}
+.edit-main:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(13,20,14,.74),transparent 55%)}
+.edit-main .copy{position:absolute;z-index:1;left:30px;bottom:28px}
+.edit-main h3{font:500 clamp(40px,4.6vw,64px)/.96 'Playfair Display',serif;margin:10px 0 0}
+.edit-side{display:grid;gap:18px;grid-template-rows:1fr 1fr}
+.edit-note{padding:30px;background:var(--warm);display:flex;flex-direction:column;justify-content:space-between}
+.edit-note h3{font:500 34px/1.02 'Playfair Display',serif;margin:12px 0}
+.edit-note.dark{color:#f4f0e6;background:var(--moss)}
+.edit-note.dark .text{color:#d4ddd0}
+
+.rain-zone{position:relative;padding:110px 0;background:linear-gradient(90deg,rgba(10,20,18,.88),rgba(10,20,18,.2)),url('assets/nye/nye-25.jpg') center/cover;color:#f5eee3}
+.rain-inner{width:min(var(--max),calc(100% - 64px));margin:auto}
+.rain-inner h2{max-width:660px;font:500 clamp(44px,5.2vw,80px)/.95 'Playfair Display',serif;margin:13px 0 18px}
+.rain-inner p{max-width:400px;margin:0 0 30px;line-height:1.6;color:#d6e0d6}
+.rain-credit{position:absolute;right:32px;bottom:18px;font:500 10.5px 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,238,227,.7)}
+
+.owner{display:grid;grid-template-columns:1fr 1fr;min-height:460px;background:#d8d3c7}
+.owner-photo{background:url('assets/tristan-condo/tristan-dining.jpg') center/cover}
+.owner-copy{padding:64px 6vw;display:flex;flex-direction:column;justify-content:space-between;gap:36px}
+.owner-copy h2{font:500 clamp(40px,4.4vw,60px)/.98 'Playfair Display',serif;margin:12px 0 18px}
+
+@media(max-width:860px){
+  .hero,.hero-inner{min-height:700px}
+  .hero{background-position:60% center}
+  .hero-copy{padding-bottom:64px}
+  .hero .display{font-size:clamp(50px,14vw,72px)}
+  .browse{padding-top:64px}
+  .edit,.owner{grid-template-columns:1fr}
+  .edit-main{height:460px}
+  .edit-side{grid-template-rows:auto}
+  .rain-zone{padding:80px 0}
+  .rain-inner{width:min(100% - 32px,var(--max))}
+  .hero-credit{right:16px;left:16px;bottom:38px;font-size:9.5px}
+  .hero-copy{padding-bottom:96px!important}
+  .rain-credit{position:static;display:block;width:min(100% - 32px,var(--max));margin:34px auto 0}
+  .owner-photo{min-height:300px}
+  .owner-copy{padding:44px 16px}
+}
+
+.toc{display:grid;grid-template-columns:.8fr 1.6fr;gap:6vw;align-items:start}
+.toc-head{position:sticky;top:28px}
+.toc-head h2{font:500 clamp(46px,5.4vw,84px)/.94 'Playfair Display',serif;margin:14px 0 18px}
+.toc-head .issue-no{font:500 11px 'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--fog)}
+.toc-head p{max-width:300px;margin:0;color:#4d584c}
+.toc-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.toc-item a{display:grid;grid-template-columns:70px 1fr 168px;gap:26px;align-items:center;padding:26px 0;border-bottom:1px solid var(--line);transition:padding .35s cubic-bezier(.2,.7,.2,1),background .35s}
+.toc-item a:hover{padding-left:14px;background:rgba(255,255,255,.45)}
+.toc-no{font:italic 500 44px/1 'Playfair Display',serif;color:var(--moss)}
+.toc-t h3{font:500 clamp(24px,2.5vw,34px)/1.05 'Playfair Display',serif;margin:0 0 8px}
+.toc-t p{margin:0;font-size:14px!important;line-height:1.55!important;color:#59645a;max-width:430px}
+.toc-t .kick{display:block;margin-bottom:8px}
+.toc-img{width:168px;aspect-ratio:4/3;overflow:hidden;background:var(--warm)}
+.toc-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.toc-item a:hover .toc-img img{transform:scale(1.07)}
+@media(max-width:860px){
+  .toc{grid-template-columns:1fr;gap:34px}
+  .toc-head{position:static}
+  .toc-item a{grid-template-columns:44px 1fr 92px;gap:14px;padding:20px 0}
+  .toc-no{font-size:30px}
+  .toc-img{width:92px}
+  .toc-t p{display:none}
+}
+
+.hero{min-height:100svh}
+.hero-inner{min-height:100svh}
+.hero-copy{padding:0 0 34px}
+.hero .finder-wrap{margin:0 0 44px}
+.hero .finder{background:rgba(18,26,20,.30);-webkit-backdrop-filter:blur(18px) saturate(1.25);backdrop-filter:blur(18px) saturate(1.25);border:1px solid rgba(255,255,255,.34);box-shadow:0 24px 60px -30px rgba(0,0,0,.5)}
+.hero .finder-field{border-right-color:rgba(255,255,255,.26)}
+.hero .finder-trigger{color:#fff}
+.hero .finder-trigger:hover,.hero .finder-field.open .finder-trigger{background:rgba(255,255,255,.1)}
+.hero .finder-label{color:rgba(255,255,255,.74)}
+.hero .finder-field:not(.is-set) .finder-text{color:#fff}
+.hero .finder-chev{color:#fff}
+.hero .finder-go{background:#f1efe8;color:#15221d}
+.hero .finder-go:hover{background:#fff}
+.hero-credit{right:32px;bottom:14px;left:auto}
+.hero:before{content:'';position:absolute;inset:0 0 auto 0;height:170px;background:linear-gradient(180deg,rgba(10,16,12,.5),transparent);pointer-events:none}
+.hero-inner{position:relative;z-index:1}.hero .finder-menu{top:auto;bottom:calc(100% + 6px)}.hero .menu{color:#fff;border-color:rgba(255,255,255,.7)}
+@media(max-width:860px){.hero{background:linear-gradient(0deg,rgba(11,18,14,.84) 0%,rgba(11,18,14,.55) 48%,rgba(11,18,14,.18) 82%),var(--img)!important}.hero .finder-wrap{margin:0 0 56px}.hero .finder-field{border-bottom-color:rgba(255,255,255,.22)}.hero-credit{bottom:20px;right:16px;font-size:9px}.hero-copy{padding-bottom:26px}}
+</style>
+</head>
+<body>
+<main>
+<section class="hero">
+  <div class="shell hero-inner">
+    <header class="topbar"><a class="brand" href="index.html">HOMES/<i>BKK</i></a><nav class="nav"><a href="collections.html">Collections</a><a href="marketplace.html">Homes</a><a href="map.html">Map</a><a href="spaces.html">Spaces</a><a href="projects.html">Projects</a><a href="journal.html">Journal</a><a class="button" href="the-home-edit.html">Submit a home</a></nav><button class="menu" data-modal>MENU +</button></header>
+    <div class="hero-copy">
+      <div class="eyebrow" style="color:#fff">Curated homes in Bangkok</div>
+      <h1 class="display">Find a place<br>worth coming<br>home to.</h1>
+      <p>A considered collection of Bangkok homes, chosen for the way they feel to live in—not just the way they look on paper.</p>
+    </div>
+    <div class="finder-wrap" data-finder></div>
+  </div>
+  <span class="hero-credit">Photo · The Sukhothai Residences (supplied)</span>
+</section>
+
+
+<section class="shell browse" id="browse">
+  <div class="rule-head">
+    <div><div class="eyebrow">Start with how you live</div><h2 class="title">Find a home by feeling,<br>not by filter.</h2></div>
+    <a class="link" href="collections.html">All collections ↗</a>
+  </div>
+  <div class="shelf" id="main-shelf" data-shelf="all"></div>
+  <div class="ghosts" data-ghosts="main-shelf"></div>
+</section>
+
+<section class="shell section" id="contents">
+  <div class="toc">
+    <div class="toc-head">
+      <div class="issue-no">Issue 01</div>
+      <h2>In this issue.</h2>
+      <p>A short guide to what is inside: collections to browse, a cover home to look at closely, and notes on the city around them.</p>
+    </div>
+    <ol class="toc-list">
+      <li class="toc-item"><a href="collection-quiet-city.html"><span class="toc-no">01</span><span class="toc-t"><span class="eyebrow kick">Collection</span><h3>The Quiet City</h3><p><span data-count-tag="quiet"></span> chosen for light, privacy and a slower pace.</p></span><span class="toc-img"><img src="assets/thumbs/issue-quiet.jpg" alt="Planted balcony with string lights" loading="lazy"></span></a></li>
+      <li class="toc-item"><a href="collections.html#pet-friendly"><span class="toc-no">02</span><span class="toc-t"><span class="eyebrow kick">Collection</span><h3>Pet-friendly city homes</h3><p>Where the pet-friendly claim can be seen in the photographs.</p></span><span class="toc-img"><img src="assets/thumbs/issue-pet.jpg" alt="Dog resting on a living room rug" loading="lazy"></span></a></li>
+      <li class="toc-item"><a href="collections.html#work-from-home"><span class="toc-no">03</span><span class="toc-t"><span class="eyebrow kick">Collection</span><h3>Work-from-home, properly</h3><p>A real second room set up as an office, not a laptop corner.</p></span><span class="toc-img"><img src="assets/thumbs/issue-wfh.jpg" alt="Desk corner with two laptops" loading="lazy"></span></a></li>
+      <li class="toc-item"><a href="property-tristan-condo.html"><span class="toc-no">04</span><span class="toc-t"><span class="eyebrow kick">Cover home</span><h3>Tristan Condo, Unit 11/16</h3><p>Fifteen frames and the story of how this two-bedroom lives.</p></span><span class="toc-img"><img src="assets/thumbs/issue-cover.jpg" alt="Dining table beneath colourful paintings" loading="lazy"></span></a></li>
+      <li class="toc-item"><a href="journal.html"><span class="toc-no">05</span><span class="toc-t"><span class="eyebrow kick">Journal</span><h3>Bangkok after rain</h3><p>Neighbourhood notes and the softer side of the city.</p></span><span class="toc-img"><img src="assets/thumbs/issue-city.jpg" alt="Skyline seen from a bedroom window" loading="lazy"></span></a></li>
+    </ol>
+  </div>
+</section>
+
+<section class="shell section" id="edit">
+  <div class="rule-head">
+    <div><div class="eyebrow">Issue 01 / Editorial selections</div><h2 class="title">The Bangkok Edit</h2></div>
+    <a class="link" href="collection-quiet-city.html">View the issue ↗</a>
+  </div>
+  <div class="edit">
+    <a class="edit-main" href="collection-quiet-city.html">
+      <img src="assets/tristan-condo/tristan-balcony.jpg" alt="A planted balcony with string lights above the city">
+      <div class="copy"><div class="eyebrow" style="color:#fff">The quiet city / <span data-count-tag="quiet"></span></div><h3>Rooms with<br>a sense of calm.</h3></div>
+    </a>
+    <div class="edit-side">
+      <article class="edit-note"><div class="eyebrow">Curator's note</div><div><h3>Not every beautiful home is a collection piece.</h3><p class="text">The ones here have a quality you notice before you can name it.</p></div><a class="link" href="collection-quiet-city.html">Read the note ↗</a></article>
+      <article class="edit-note dark"><div class="eyebrow" style="color:#d4ddd0">Next issue</div><div><h3>Homes with a point of view.</h3><p class="text">Rare light, hard-to-find layouts and rooms that stay with you.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="rain-zone">
+  <div class="rain-inner">
+    <div class="eyebrow" style="color:#d2decf">Bangkok after rain / neighbourhood notes</div>
+    <h2>The city changes when the light does.</h2>
+    <p>Places to walk, rooms with a view and stories from the softer side of Bangkok—after the rain has washed the day away.</p>
+    <a class="btn sand" href="journal.html">Enter the journal ↗</a>
+  </div>
+  <span class="rain-credit">Photo · Nye by Sansiri (supplied)</span>
+</section>
+
+<section class="shell section" id="homes">
+  <div class="rule-head">
+    <div><div class="eyebrow">Newly curated</div><h2 class="title">Homes just added.</h2></div>
+    <a class="link" href="marketplace.html">Browse all homes ↗</a>
+  </div>
+  <div class="hcards" data-new="6"></div>
+</section>
+
+<section class="owner">
+  <div class="owner-photo" role="img" aria-label="Dining room at Tristan Condo"></div>
+  <div class="owner-copy">
+    <div><div class="eyebrow">For owners &amp; agents</div><h2>Your home deserves more than a listing.</h2><p class="text">Selected homes receive photography, film and an editorial presentation built to help the right people discover them.</p></div>
+    <a class="link" href="the-home-edit.html">Explore The Home Edit ↗</a>
+  </div>
+</section>
+</main>
+
+<footer data-site-footer></footer>
+<div class="modal"><div class="modal-card"><div class="eyebrow">Concept prototype</div><h2>Coming soon.</h2><p>This part of the prototype is not built yet.</p><button class="btn" data-close>Close</button></div></div>
+<script src="config.js"></script><script src="i18n-th.js"></script><script src="homes-data.js"></script><script src="live.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Map — HOMES/BKK</title>
+<meta name="description" content="Homes on a map of Bangkok. Locations are approximate until a viewing is booked.">
+<link rel="stylesheet" href="shared.css">
+<link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
+<style>
+body.map-page{min-height:100vh}
+.map-head{padding:26px 0 18px;border-bottom:1px solid var(--rule)}
+.map-head h1{font:500 clamp(30px,3.4vw,46px)/1.02 'Playfair Display',serif;margin:8px 0 0}
+.mapbar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding:14px 0}
+.seg{display:inline-flex;border:1px solid var(--ink)}
+.seg button{border:0;background:transparent;color:var(--ink);padding:9px 15px;font:500 13px 'DM Sans',sans-serif;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.mapbar label{display:flex;align-items:center;gap:8px;font:500 11px 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--fog)}
+.mapbar select{border:1px solid var(--ink);background:var(--paper-2);padding:9px 12px;color:var(--ink);font-size:14px}
+.mapbar .count{margin-left:auto;font:500 12px 'DM Mono',monospace;letter-spacing:.06em}
+.map-layout{display:grid;grid-template-columns:minmax(300px,380px) 1fr;height:calc(100vh - 222px);min-height:520px;border-top:1px solid var(--rule)}
+.map-list{overflow:auto;border-right:1px solid var(--rule);background:var(--paper-2)}
+.mitem{display:grid;grid-template-columns:104px 1fr;gap:14px;padding:14px 18px;border-bottom:1px solid var(--rule);color:inherit;text-decoration:none;cursor:pointer;transition:background .15s}
+.mitem:hover,.mitem.on{background:#fff}
+.mitem.on{box-shadow:inset 3px 0 0 var(--moss)}
+.mitem img{width:104px;height:78px;object-fit:cover;display:block;background:var(--warm)}
+.mitem .mp{font:500 20px/1.1 'Playfair Display',serif}
+.mitem .mp .px-note{display:block;font:500 10px 'DM Mono',monospace;letter-spacing:.08em;color:var(--fog);margin-top:3px}
+.mitem h3{font:600 14px/1.3 'DM Sans',sans-serif!important;margin:5px 0 2px}
+.mitem small{display:block;color:var(--fog);font-size:12px;line-height:1.4}
+.mitem .nogeo{color:#8a5a2b}
+.map-note{padding:16px 18px;color:var(--fog);font-size:13px!important;line-height:1.55!important}
+#map{position:relative;background:#e6e2d6 repeating-linear-gradient(0deg,transparent 0 59px,rgba(28,37,29,.06) 59px 60px),repeating-linear-gradient(90deg,transparent 0 59px,rgba(28,37,29,.06) 59px 60px);z-index:1}
+.pin{background:var(--ink);color:#fff;font:600 12px/1 'DM Sans',sans-serif;padding:7px 9px;white-space:nowrap;border-radius:2px;box-shadow:0 2px 8px rgba(0,0,0,.28);transform:translate(-50%,-50%);position:absolute;left:0;top:0;border:1px solid #fff}
+.pin.on{background:var(--sand);color:var(--deep);z-index:900!important}
+.leaflet-div-icon.pinwrap{background:none;border:0}
+.leaflet-popup-content{margin:0;width:230px!important}
+.pop img{width:100%;height:120px;object-fit:cover;display:block}
+.pop div{padding:12px 14px 14px}
+.pop b{display:block;font:500 20px 'Playfair Display',serif}
+.pop a{color:var(--ink);font:600 14px/1.35 'DM Sans',sans-serif;text-decoration:none;display:block;margin:4px 0}
+.pop small{color:var(--fog)}
+.tile-warn{position:absolute;left:12px;bottom:34px;z-index:800;background:rgba(21,34,29,.9);color:#fff;padding:8px 11px;font:500 11px/1.4 'DM Mono',monospace;letter-spacing:.04em;max-width:320px}
+.map-empty{padding:30px 18px;color:var(--fog)}
+@media(max-width:900px){.map-layout{grid-template-columns:1fr;height:auto}#map{height:56vh;order:-1}.map-list{max-height:none;border-right:0}.mapbar .count{margin-left:0}}
+</style>
+</head>
+<body class="map-page">
+<div class="shell"><header class="topbar"><a class="brand" href="index.html">HOMES/<i>BKK</i></a><nav class="nav"><a href="collections.html">Collections</a><a href="marketplace.html">Homes</a><a href="map.html">Map</a><a href="spaces.html">Spaces</a><a href="projects.html">Projects</a><a href="journal.html">Journal</a><a class="button" href="the-home-edit.html">Submit a home</a></nav><button class="menu" data-modal>MENU +</button></header></div>
+<main>
+<section class="shell map-head">
+  <div class="eyebrow">Homes / on the map</div>
+  <h1>Where the homes are.</h1>
+  <div class="mapbar" role="group" aria-label="Refine the map">
+    <div class="seg" id="segIntent"><button type="button" data-v="all" aria-pressed="true">All</button><button type="button" data-v="rent" aria-pressed="false">Rent</button><button type="button" data-v="buy" aria-pressed="false">Buy</button></div>
+    <label>Area <select id="selArea"></select></label>
+    <label>Bedrooms <select id="selBeds"><option value="all">Any</option><option value="1">1 bedroom</option><option value="2+">2+ bedrooms</option></select></label>
+    <span class="count" id="mapCount" aria-live="polite"></span>
+  </div>
+</section>
+<div class="shell" style="padding:0">
+  <div class="map-layout">
+    <aside class="map-list" id="list" aria-label="Homes on the map"></aside>
+    <div id="map" role="application" aria-label="Map of homes in Bangkok"></div>
+  </div>
+</div>
+</main>
+<footer data-site-footer></footer>
+
+<script src="config.js"></script>
+<script src="i18n-th.js"></script><script src="homes-data.js"></script><script src="live.js"></script>
+<script src="shared.js"></script>
+<script src="assets/vendor/leaflet/leaflet.js"></script>
+<script>
+document.addEventListener('hb-ready', () => {
+  const C = window.HB_CONFIG, $ = s => document.querySelector(s);
+  const S = { intent: 'all', area: 'all', beds: 'all' };
+  const P = new URLSearchParams(location.search);
+  if (['rent', 'buy'].includes(P.get('intent'))) S.intent = P.get('intent');
+  const focusId = P.get('home');
+
+  const map = L.map('map', { zoomControl: true, scrollWheelZoom: true }).setView(C.mapCenter, C.mapZoom);
+  let tileErrors = 0;
+  const tiles = L.tileLayer(C.mapTiles, { attribution: C.mapAttribution, maxZoom: 18 }).addTo(map);
+  tiles.on('tileerror', () => {
+    if (++tileErrors === 4 && !$('.tile-warn')) {
+      const d = document.createElement('div'); d.className = 'tile-warn';
+      d.textContent = 'Map background could not load here. The pins and circles still show where the homes are.';
+      $('#map').appendChild(d);
+    }
+  });
+  const layer = L.layerGroup().addTo(map);
+
+  function areaOptions() {
+    const used = new Set(HB.HOMES.filter(h => h.area).map(h => h.area));
+    $('#selArea').innerHTML = '<option value="all">Anywhere in Bangkok</option>' +
+      Object.entries(HB.AREAS).filter(([k]) => used.has(k)).map(([k, v]) => `<option value="${k}"${S.area === k ? ' selected' : ''}>${v}</option>`).join('');
+  }
+  function pinLabel(h) {
+    const first = String(h.price || '').split(' · ')[0];
+    let m = first.match(/฿\s?([\d.]+)M/); if (m) return '฿' + m[1] + (HB.th ? 'ล้าน' : 'M');
+    m = first.match(/฿\s?([\d,]+)/); if (m) { const n = +m[1].replace(/,/g, ''); return '฿' + (n >= 1000 ? (+(n / 1000).toFixed(1)) + 'k' : n) + (HB.th ? '/ด.' : '/mo'); }
+    return '฿';
+  }
+  const markers = {};
+  function render() {
+    layer.clearLayers(); Object.keys(markers).forEach(k => delete markers[k]);
+    const f = { intent: S.intent, area: S.area, beds: S.beds === 'all' ? [] : [S.beds] };
+    const homes = HB.filter(f).filter(h => !h.concept);
+    const withGeo = homes.filter(h => h.geo), without = homes.filter(h => !h.geo);
+    const pts = [];
+    const seen = {};
+    withGeo.forEach(h => {
+      const r = h.geoR || C.mapCircleMeters;
+      const kk = h.geo.join(','); const nth = seen[kk] = (seen[kk] || 0) + 1;
+      const at = nth > 1 ? [h.geo[0] + .0009 * (nth - 1), h.geo[1] + .0009 * (nth - 1)] : h.geo;  // identical points (same building) are nudged apart so both pins stay visible
+      L.circle(at, { radius: r, color: '#314233', weight: 1, fillColor: '#314233', fillOpacity: .12, interactive: false }).addTo(layer);
+      const icon = L.divIcon({ className: 'pinwrap', html: `<span class="pin" data-id="${h.id}">${pinLabel(h)}</span>`, iconSize: [0, 0] });
+      const mk = L.marker(at, { icon, keyboard: true, title: h.place }).addTo(layer);
+      mk.bindPopup(`<div class="pop"><img alt="" src="${h.img}"><div><b>${HB.priceHTML(h.price, false)}</b><a href="${h.href}">${h.title}</a><small>${h.place}</small></div></div>`, { closeButton: true });
+      mk.on('click', () => select(h.id, false));
+      markers[h.id] = mk; pts.push(h.geo);
+    });
+    $('#mapCount').textContent = HB.plural(homes.length, 'home', 'homes');
+    const V = h => Object.assign({}, h, (HB.th && window.HB_TH && HB_TH.homes && HB_TH.homes[h.id]) || {});
+    $('#list').innerHTML = (homes.length ? homes.map(V).map(h => `<a class="mitem" data-id="${h.id}" href="${h.href}">
+        <img loading="lazy" alt="" src="${h.img}"><div><div class="mp">${HB.priceHTML(h.price)}</div><h3>${h.title}</h3><small>${h.place}</small>${h.geo ? '' : '<small class="nogeo">Location to be pinned</small>'}</div></a>`).join('')
+      : '<div class="map-empty"><b>Nothing matches that yet.</b><br>Loosen a filter, or show everything.</div>') +
+      `<div class="map-note">Circles show the approximate area, not the address. The exact address is shared once a viewing is booked.${without.length ? '' : ''}</div>`;
+    HB.translate($('#list'));
+    const med = a => a.slice().sort((x, y) => x - y)[Math.floor(a.length / 2)];
+    const core = pts.length > 2 ? pts.filter(q => Math.abs(q[0] - med(pts.map(x => x[0]))) < .1 && Math.abs(q[1] - med(pts.map(x => x[1]))) < .1) : pts;   // far-out homes stay in the list but do not zoom the whole map out
+    if (core.length > 1) map.fitBounds(L.latLngBounds(core).pad(.3), { maxZoom: 15 });
+    else if (core.length === 1) map.setView(core[0], 14);
+    if (focusId && markers[focusId]) select(focusId, true);
+  }
+  function select(id, open) {
+    document.querySelectorAll('.mitem.on,.pin.on').forEach(e => e.classList.remove('on'));
+    const it = document.querySelector(`.mitem[data-id="${id}"]`); if (it) { it.classList.add('on'); if (!open) it.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+    const pin = document.querySelector(`.pin[data-id="${id}"]`); if (pin) pin.classList.add('on');
+    if (open && markers[id]) { map.setView(markers[id].getLatLng(), 14); markers[id].openPopup(); }
+  }
+  $('#list').addEventListener('mouseover', e => { const it = e.target.closest('.mitem'); if (it) { document.querySelectorAll('.pin.on').forEach(x => x.classList.remove('on')); const p = document.querySelector(`.pin[data-id="${it.dataset.id}"]`); if (p) p.classList.add('on'); } });
+  $('#list').addEventListener('click', e => {
+    const it = e.target.closest('.mitem'); if (!it || !markers[it.dataset.id] || window.innerWidth <= 900) return;
+    if (e.metaKey || e.ctrlKey) return;
+    e.preventDefault(); select(it.dataset.id, true);
+  });
+  $('#segIntent').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    S.intent = b.dataset.v; syncSeg(); render();
+  });
+  function syncSeg() { document.querySelectorAll('#segIntent button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === S.intent)); }
+  $('#selArea').addEventListener('change', e => { S.area = e.target.value; render(); });
+  $('#selBeds').addEventListener('change', e => { S.beds = e.target.value; render(); });
+  document.addEventListener('hb-listings', () => { areaOptions(); render(); });
+  areaOptions(); syncSeg(); render();
+  setTimeout(() => map.invalidateSize(), 200);
+});
+</script>
+</body>
+</html>
